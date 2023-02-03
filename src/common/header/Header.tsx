@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styled from '@emotion/styled'
 import palette from '../../../styles/palette'
 
@@ -83,7 +84,9 @@ const Header = () => {
   return (
     <HeaderBlock>
       <HeaderLogoContainer>
-        <HeaderLogoImg src="./assets/images/logo.png" />
+        <Link href="/">
+          <HeaderLogoImg src="./assets/images/logo.png" />
+        </Link>
       </HeaderLogoContainer>
       <HeaderButtonContainer>
         <HeaderButtons>Login</HeaderButtons>

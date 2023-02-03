@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import ehrtj from '../public/assets/json/ehrtj.json'
 import palette from '../styles/palette'
 import { Title } from '../src/components/Title'
+import Modal from '../src/common/Modal'
 
 const DatabaseBlock = styled.main`
   width: 100%;
@@ -31,6 +32,11 @@ const DatabaseTd = styled.td`
 
 export default function Database() {
   const [mount, setMount] = useState<boolean>(false)
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
+
+  const modalOpenHandler = () => {
+    setModalOpen(_ => !modalOpen)
+  }
   useEffect(() => {
     setMount(true)
     console.log(ehrtj)
@@ -44,8 +50,14 @@ export default function Database() {
           <DatabaseTh>학년도/월</DatabaseTh>
           <DatabaseTh>영역</DatabaseTh>
           <DatabaseTh>문항번호</DatabaseTh>
-          <DatabaseTh>작가/제목</DatabaseTh>
-          {ehrtj.map((item, key) => (
+          <DatabaseTh
+            onClick={() => {
+              modalOpenHandler()
+            }}
+          >
+            작가/제목
+          </DatabaseTh>
+          {[...ehrtj].reverse().map((item, key) => (
             <DatabaseTr key={key}>
               <DatabaseTd
                 style={{
@@ -72,6 +84,16 @@ export default function Database() {
             </DatabaseTr>
           ))}
         </DatabaseTable>
+        <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
+          <embed
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+            src="./assets/2211.pdf"
+            type="application/pdf"
+          ></embed>
+        </Modal>
       </DatabaseBlock>
     )
   )
